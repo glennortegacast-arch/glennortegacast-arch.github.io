@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Internal Brand Implementation — Gerresheimer Querétaro · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+
+    /* Gerresheimer brand palette (client guideline) */
+    --g1: #053E40;
+    --g2: #003E52;
+    --g3: #29B7B2;
+    --g4: #00C4BA;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .ph { position: relative; background-color: #E7EAEF; background-image: repeating-linear-gradient(135deg, rgba(31,41,55,0.07) 0 1px, transparent 1px 12px); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ph .ph-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.86); border: 1px solid var(--line); padding: 6px 11px; border-radius: 999px; }
+  .ph.brand { background-color: color-mix(in srgb, var(--g1) 92%, #000); background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 13px); border-color: transparent; }
+  .ph.brand .ph-tag { background: rgba(5,62,64,0.4); border-color: rgba(255,255,255,0.18); color: #cfeeec; }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* ===== Hero ===== */
+  .ch { padding: 122px 0 0; }
+  .ch-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .ch-eyebrow .label { color: var(--blue); }
+  .ch-eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .ch h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 84px); line-height: 0.98; margin: 0 0 28px; text-wrap: balance; max-width: 17ch; }
+  .ch-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #2c313a; max-width: 60ch; margin: 0; }
+  .ch-sub b { font-weight: 500; }
+
+  .ch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 48px 0 0; }
+  .ch-meta .m { background: var(--surface); padding: 20px 22px; }
+  .ch-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  .hero-img { margin-top: 44px; }
+  .hero-img .ph { aspect-ratio: 21 / 9; border-radius: 14px; }
+  .hero-img .shot { aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #e7eaef; }
+  .hero-img .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--blue) 24%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--green); padding-left: 20px; margin: 0 0 26px; }
+
+  /* ===== Brand system ===== */
+  .brandsys { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 52px); align-items: center; }
+  .swrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .sw .chip { height: 96px; }
+  .sw .info { padding: 11px 12px 13px; }
+  .sw .hx { font-family: var(--mono); font-size: 12.5px; font-weight: 700; color: var(--ink); }
+  .sw .rl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .typecard { background: var(--g1); color: #eafffe; border-radius: 14px; padding: 32px 30px; }
+  .typecard .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--g3); margin-bottom: 16px; }
+  .typecard .spec { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4vw, 46px); letter-spacing: 0.02em; line-height: 1.0; }
+  .typecard .spec small { display: block; font-weight: 500; font-size: 15px; letter-spacing: 0.04em; color: #9fd9d6; margin-top: 14px; font-family: var(--mono); }
+  .typecard .glyphs { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: 0.06em; color: #7fcfcb; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 18px; }
+
+  /* ===== Produced grid ===== */
+  .deliv { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .dcard { position: relative; border-radius: 12px; overflow: hidden; }
+  .dcard .ph { width: 100%; height: 100%; }
+  .dcard .cap { position: absolute; left: 14px; bottom: 14px; right: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; z-index: 2; }
+  .dcard .cap .nm { font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,0.5); }
+  .dcard .cap .ct { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.85); background: rgba(0,0,0,0.32); border-radius: 999px; padding: 4px 9px; backdrop-filter: blur(4px); }
+  .dcard.tall { grid-column: span 4; }
+  .dcard.tall .ph { aspect-ratio: 3 / 4; }
+  .dcard.wide { grid-column: span 8; }
+  .dcard.wide .ph { aspect-ratio: 16 / 9; }
+  .dcard.half { grid-column: span 6; }
+  .dcard.half .ph { aspect-ratio: 16 / 10; }
+  /* real-photo fills */
+  .dcard .shot { width: 100%; height: 100%; overflow: hidden; }
+  .dcard.tall .shot { aspect-ratio: 3 / 4; }
+  .dcard.wide .shot { aspect-ratio: 16 / 9; }
+  .dcard.half .shot { aspect-ratio: 16 / 10; }
+  .dcard .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+  .dcard:hover .shot img { transform: scale(1.045); }
+  /* non-photo tally card (compliance-safe) */
+  .dcard.tally { grid-column: span 6; }
+  .dcard.tally .panel { aspect-ratio: 16 / 10; background: linear-gradient(150deg, var(--g2) 0%, var(--g1) 100%); color: #eafffe; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(20px, 2.4vw, 30px); position: relative; overflow: hidden; }
+  .dcard.tally .panel::after { content: ""; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(41,183,178,0.22); }
+  .dcard.tally .big { font-family: var(--display); font-weight: 700; letter-spacing: -0.03em; font-size: clamp(40px, 5vw, 64px); line-height: 0.9; }
+  .dcard.tally .big small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g4); margin-top: 10px; }
+  .dcard.tally .chips { display: flex; flex-wrap: wrap; gap: 7px; position: relative; z-index: 1; }
+  .dcard.tally .chips span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em; color: #d4fbf9; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; padding: 5px 11px; }
+  .deliv-note { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 18px; letter-spacing: 0.02em; }
+
+  /* ===== Impact ===== */
+  .impact { background: var(--graphite); color: #EAECEF; }
+  .impact .sec-head .ttl { color: #8b94a3; }
+  .impact .sec-head .num { color: var(--green); }
+  .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+  .impact-stats .st { background: var(--graphite); padding: 36px 30px; }
+  .impact-stats .big { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(44px, 6vw, 76px); line-height: 0.9; color: #fff; }
+  .impact-stats .big .g { color: var(--green); }
+  .impact-stats .cap { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: #aeb6c2; margin-top: 14px; line-height: 1.4; }
+  .impact-body { max-width: 64ch; }
+  .impact-body p { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; color: #c7cdd6; margin: 0; }
+  .impact-body p b { color: #fff; font-weight: 500; }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--green); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--blue); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--green); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .ch-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .brandsys { grid-template-columns: 1fr; }
+    .impact-stats { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .hero-img .ph { aspect-ratio: 4 / 3; }
+    .hero-img .shot { aspect-ratio: 4 / 3; }
+    .deliv { grid-template-columns: 1fr; gap: 14px; }
+    .dcard.tall, .dcard.wide, .dcard.half, .dcard.tally { grid-column: span 1; }
+    .dcard .ph { aspect-ratio: 16 / 10 !important; }
+    .dcard .shot, .dcard.tall .shot, .dcard.wide .shot, .dcard.half .shot { aspect-ratio: 16 / 10 !important; }
+    .swrow { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="ch">
+    <div class="wrap">
+      <div class="ch-eyebrow"><span class="label">Case Study · Brand Systems</span></div>
+      <h1>Internal Brand Implementation</h1>
+      <p class="ch-sub"><b>Translating a global brand guideline into the physical and digital reality of a 1,500-employee manufacturing plant — giving the site its first cohesive internal brand presence.</b></p>
+
+      <div class="ch-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Creative Producer<br>Brand Systems</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Scope</div><div class="v">30 branded pieces<br>across the site</div></div>
+        <div class="m"><div class="k">Reach</div><div class="v">1,500 employees<br>one facility</div></div>
+      </div>
+
+      <div class="hero-img">
+        <div class="shot"><img src="../assets/brand-waiting-v2.jpg" alt="Branded waiting area at the plant with Gerresheimer &lsquo;Her health / His health&rsquo; campaign posters" /></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>A 1,500-person plant with <span class="u">no internal brand presence.</span></h2>
+          <div class="prose">
+            <p>During a renovation of the plant's offices, I identified a gap: the facility had no internal corporate branding. There was no signage and no visual presence communicating the company's mission, vision, or values.</p>
+            <p class="pull">Across a site of 1,500 employees, this contributed to a visible disconnect between the workforce and the company they were part of.</p>
+            <p>The opportunity was clear — use branding to strengthen employees' sense of belonging, and reflect internally the same high quality standards the plant delivers in production.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY ROLE -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">My Role</span></div>
+        <div class="split">
+          <h2>From global guideline to <span class="u">plant-floor reality.</span></h2>
+          <div class="prose">
+            <p>Headquarters had defined the core brand system — color palette, photography, and GT America Extended as the corporate typeface. My job was to translate that global guideline into the physical and digital reality of the plant.</p>
+            <p>That meant interpreting the standards and applying them consistently across every internal touchpoint — from wayfinding to day-to-day communications — so the site spoke in one coherent voice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND SYSTEM -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">The system I worked within</span></div>
+        <div class="brandsys">
+          <div>
+            <div class="swrow">
+              <div class="sw"><div class="chip" style="background:#053E40"></div><div class="info"><div class="hx">#053E40</div><div class="rl">Deep teal</div></div></div>
+              <div class="sw"><div class="chip" style="background:#003E52"></div><div class="info"><div class="hx">#003E52</div><div class="rl">Navy teal</div></div></div>
+              <div class="sw"><div class="chip" style="background:#29B7B2"></div><div class="info"><div class="hx">#29B7B2</div><div class="rl">Teal</div></div></div>
+              <div class="sw"><div class="chip" style="background:#00C4BA"></div><div class="info"><div class="hx">#00C4BA</div><div class="rl">Bright cyan</div></div></div>
+            </div>
+            <p class="deliv-note">HQ-defined palette · applied consistently across all 30 pieces</p>
+          </div>
+          <div class="typecard">
+            <div class="k">Corporate typeface</div>
+            <div class="spec">GT America<br>Extended<small>Headquarters brand guideline</small></div>
+            <div class="glyphs">Aa Bb Cc · 0123456789</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I PRODUCED -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">What I produced</span></div>
+        <div class="split" style="margin-bottom:clamp(32px,5vw,52px);">
+          <h2>30 branded pieces, <span class="u">one visual language.</span></h2>
+          <div class="prose">
+            <p>I designed and rolled out 30 branded pieces across the site — each adhering to the HQ guideline's palette, typography and photography to ensure a single, coherent system from the front door to the SharePoint home page.</p>
+          </div>
+        </div>
+
+        <div class="deliv">
+          <div class="dcard wide">
+            <div class="shot"><img src="../assets/brand-hallway-v2.jpg" alt="Corridor lined with Gerresheimer campaign posters" /></div>
+            <div class="cap"><span class="nm">Campaign posters &amp; wall graphics</span><span class="ct">Throughout the plant</span></div>
+          </div>
+          <div class="dcard tall">
+            <div class="shot"><img src="../assets/brand-directory-v2.jpg" alt="Branded floor directory and wayfinding sign by the elevator" /></div>
+            <div class="cap"><span class="nm">Wayfinding &amp; directory</span><span class="ct">Signage</span></div>
+          </div>
+          <div class="dcard half">
+            <div class="shot"><img src="../assets/brand-logowall-v2.jpg" alt="Gerresheimer logo wall at the reception lounge" /></div>
+            <div class="cap"><span class="nm">Brand wall &amp; reception</span><span class="ct">Lobby</span></div>
+          </div>
+          <div class="dcard tally">
+            <div class="panel">
+              <div class="big">+26<small>more pieces produced</small></div>
+              <div class="chips"><span>Presentation templates</span><span>Internal comms</span><span>SharePoint pages</span><span>Digital screens</span><span>Banners</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="deliv-note">30 pieces total · palette, typography &amp; photography aligned to the HQ brand guideline</p>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec impact line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">05</span><span class="ttl">Impact</span></div>
+        <div class="impact-stats">
+          <div class="st"><div class="big">30</div><div class="cap">branded pieces rolled out across the site</div></div>
+          <div class="st"><div class="big">1,500</div><div class="cap">employees in a workplace that now reflects the brand</div></div>
+          <div class="st"><div class="big"><span class="g">1</span></div><div class="cap">cohesive internal brand system — the plant's first</div></div>
+        </div>
+        <div class="impact-body">
+          <p>Today, <b>all internal communications across the site follow these guidelines</b> — giving every team a consistent system to build from rather than starting from scratch, and giving 1,500 employees a workplace that visibly reflects the company's identity and standards.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Want this for your<br>spaces<span class="g">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

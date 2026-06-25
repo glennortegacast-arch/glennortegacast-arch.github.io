@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Filmmaking — Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --amber: #E8A317;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+    --film: #0C0E12;
+    --film-2: #14171E;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--film); color: #EAECEF; font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #7f8694; }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--film) 72%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line-dark); background: color-mix(in srgb, var(--film) 90%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: #EAECEF; display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: #EAECEF; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+
+  /* ===== Hero ===== */
+  .hero { position: relative; overflow: hidden; padding: 124px 0 0; }
+  .hero .glow { position: absolute; z-index: 0; width: 70vw; height: 70vw; max-width: 880px; max-height: 880px; right: -12%; top: -18%; border-radius: 50%; background: radial-gradient(circle, rgba(232,163,23,0.22) 0%, rgba(45,107,255,0.12) 40%, transparent 70%); filter: blur(8px); }
+  .hero .grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29' opacity='0.5'/%3E%3C/svg%3E"); }
+  .hero .wrap { position: relative; z-index: 2; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+  .hero-eyebrow .label { color: var(--amber); }
+  .hero-eyebrow::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.16); min-width: 30px; }
+  .hero h1 { font-family: var(--display); font-weight: 700; letter-spacing: -0.04em; font-size: clamp(54px, 11vw, 150px); line-height: 0.9; margin: 0 0 28px; }
+  .hero h1 .it { font-family: var(--body); font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--amber); }
+  .roles-line { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-bottom: 30px; }
+  .roles-line span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #c3ccd9; border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 7px 14px; }
+  .hero-lede { font-size: clamp(19px, 2.1vw, 25px); line-height: 1.5; color: #c3ccd9; max-width: 56ch; margin: 0; font-style: italic; }
+  .hero-lede b { color: #fff; font-weight: 500; font-style: normal; }
+
+  /* hero film still */
+  .hero-still { position: relative; z-index: 2; margin-top: 50px; }
+  .big-frame { position: relative; aspect-ratio: 21 / 9; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #05060a; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 18px); display: flex; align-items: center; justify-content: center; }
+  .big-frame .corner { position: absolute; width: 20px; height: 20px; border: 1.5px solid rgba(255,255,255,0.4); }
+  .big-frame .corner.tl { left: 18px; top: 18px; border-right: none; border-bottom: none; }
+  .big-frame .corner.tr { right: 18px; top: 18px; border-left: none; border-bottom: none; }
+  .big-frame .corner.bl { left: 18px; bottom: 18px; border-right: none; border-top: none; }
+  .big-frame .corner.br { right: 18px; bottom: 18px; border-left: none; border-top: none; }
+  .big-frame .note { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .big-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .big-frame .bf-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(5,6,10,0.55), transparent 38%); pointer-events: none; }
+  .big-frame .corner, .big-frame .tc, .big-frame .slate, .big-frame .note { z-index: 2; }
+  .big-frame .tc { position: absolute; right: 20px; top: 18px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.5); }
+  .big-frame .slate { position: absolute; left: 20px; bottom: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); }
+  .strip-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+  .strip-thumbs .th { position: relative; aspect-ratio: 16 / 10; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #05060a; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 14px); }
+  .strip-thumbs .th .n { position: absolute; left: 9px; bottom: 7px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.05em; color: rgba(255,255,255,0.45); }
+
+  .hero-meta { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; margin: 28px 0 0; }
+  .hero-meta .m { background: var(--film-2); padding: 20px 22px; }
+  .hero-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7f8694; margin-bottom: 8px; }
+  .hero-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: #EAECEF; }
+  .hero .pad-b { height: clamp(56px, 8vw, 100px); }
+
+  /* ===== Sections ===== */
+  .sec { padding: clamp(64px, 9vw, 120px) 0; position: relative; }
+  .sec.line-top { border-top: 1px solid var(--line-dark); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--amber); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #7f8694; }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(28px, 3.6vw, 46px); line-height: 1.03; margin: 0; text-wrap: balance; color: #fff; }
+  .split h2 .u { color: var(--amber); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.64; color: #c3ccd9; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.3vw, 28px); line-height: 1.2; color: #fff; border-left: 3px solid var(--amber); padding-left: 22px; margin: 0 0 26px; }
+  .prose b { color: #fff; font-weight: 500; }
+
+  /* roles / departments grid */
+  .depts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 32px; }
+  .dept { border: 1px solid var(--line-dark); border-radius: 12px; padding: 18px 16px 20px; background: var(--film-2); transition: transform 0.3s, border-color 0.3s; }
+  .dept:hover { transform: translateY(-4px); border-color: rgba(232,163,23,0.5); }
+  .dept .di { font-family: var(--mono); font-size: 10px; color: var(--amber); letter-spacing: 0.06em; }
+  .dept h4 { font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; margin: 12px 0 0; color: #EAECEF; line-height: 1.1; }
+  .dept.lead { background: linear-gradient(155deg, rgba(232,163,23,0.18), var(--film-2)); border-color: rgba(232,163,23,0.4); }
+
+  /* craft pipeline */
+  .craft { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
+  .cstep { border: 1px solid var(--line-dark); border-radius: 14px; padding: 26px 22px; background: var(--film-2); }
+  .cstep .cn { font-family: var(--mono); font-size: 11px; color: var(--amber); letter-spacing: 0.06em; }
+  .cstep h4 { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; margin: 14px 0 9px; color: #fff; }
+  .cstep p { font-family: var(--body); font-size: 15px; line-height: 1.55; color: #aeb6c2; margin: 0; }
+  .gear { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .gcard { background: linear-gradient(150deg, #243149, #11141A); color: #EAECEF; border-radius: 14px; padding: 24px; position: relative; overflow: hidden; }
+  .gcard::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 130px; height: 130px; border-radius: 50%; background: rgba(232,163,23,0.16); }
+  .gcard .gk { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); }
+  .gcard .gv { font-family: var(--display); font-weight: 600; font-size: clamp(20px,2.3vw,26px); letter-spacing: -0.02em; margin: 14px 0 8px; line-height: 1.05; position: relative; z-index: 1; }
+  .gcard .gd { font-family: var(--body); font-size: 15px; line-height: 1.5; color: #aeb6c2; margin: 0; position: relative; z-index: 1; }
+
+  /* selected films */
+  .films { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .film-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line-dark); background: #05060a; }
+  .film-card .poster { aspect-ratio: 3 / 4; position: relative; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 16px); display: flex; align-items: center; justify-content: center; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+  .film-card:nth-child(1) .poster { background-color: #1a2233; }
+  .film-card:nth-child(2) .poster { background-color: #221a2e; }
+  .film-card:nth-child(3) .poster { background-color: #15231f; }
+  .film-card:hover .poster { transform: scale(1.04); }
+  .film-card .poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .film-card .status { position: absolute; left: 12px; top: 12px; z-index: 2; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: #3a2a00; background: var(--amber); padding: 6px 11px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; }
+  .film-card .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3a2a00; }
+  .film-card .poster .pn { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .film-card .cap { padding: 18px 20px 20px; }
+  .film-card .cap .ti { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; color: #fff; font-style: italic; }
+  .film-card .cap .rl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--amber); margin-top: 8px; }
+
+  /* stills contact sheet */
+  .csheet { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .frame { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--line-dark); background: #05060a; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 15px); transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
+  .frame:hover { transform: translateY(-4px); }
+  .frame .lab { position: absolute; left: 10px; bottom: 9px; right: 10px; display: flex; justify-content: space-between; gap: 8px; }
+  .frame .lab .nm { font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  .frame .lab .no { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.4); }
+  .frame.f-wide { grid-column: span 4; aspect-ratio: 16 / 9; }
+  .frame.f-half { grid-column: span 3; aspect-ratio: 16 / 9; }
+  .frame.f-full { grid-column: span 6; aspect-ratio: 21 / 9; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+  .frame:hover img { transform: scale(1.05); }
+  .frame .lab.over { z-index: 2; }
+  .frame .scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(5,6,10,0.6) 0%, transparent 40%); pointer-events: none; }
+  .frame.f-sq { grid-column: span 2; aspect-ratio: 4 / 5; }
+  .frame.f-third { grid-column: span 2; aspect-ratio: 4 / 3; }
+  .sheet-note { font-family: var(--mono); font-size: 12px; color: #7f8694; margin-top: 18px; letter-spacing: 0.02em; }
+
+  /* CTA */
+  .next { border-top: 1px solid var(--line-dark); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 92px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 62px); line-height: 1.0; margin: 0; color: #fff; }
+  .next-in h3 .a { color: var(--amber); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--amber); color: #2a1d00; }
+  .btn-primary:hover { background: #ffb733; }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; color: #7f8694; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .a { color: var(--amber); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .hero-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .depts { grid-template-columns: repeat(2, 1fr); }
+    .craft { grid-template-columns: 1fr; }
+    .gear { grid-template-columns: 1fr; }
+    .films { grid-template-columns: 1fr; }
+    .csheet { grid-template-columns: repeat(2, 1fr); }
+    .frame.f-wide, .frame.f-sq, .frame.f-third, .frame.f-half, .frame.f-full { grid-column: span 2; aspect-ratio: 16/10; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .big-frame { aspect-ratio: 16 / 9; }
+    .depts { grid-template-columns: 1fr; }
+    .csheet { grid-template-columns: 1fr; }
+    .frame.f-wide, .frame.f-sq, .frame.f-third, .frame.f-half, .frame.f-full { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+  <template id="__bundler_thumbnail" data-bg-color="#0C0E12">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#0C0E12"/>
+      <rect x="380" y="250" width="440" height="248" rx="10" fill="none" stroke="#EAECEF" stroke-width="4"/>
+      <path d="M540 330 v140 l120 -70 z" fill="#E8A317"/>
+      <text x="600" y="600" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#EAECEF" text-anchor="middle" letter-spacing="-2">Filmmaking</text>
+    </svg>
+  </template>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="hero-eyebrow"><span class="label">Where it started · Origin</span></div>
+      <h1>Film<span class="it">making</span></h1>
+      <div class="roles-line">
+        <span>Director</span><span>Writer</span><span>Producer</span><span>Camera &amp; Lighting</span>
+      </div>
+      <p class="hero-lede"><b>Filmmaking is where my approach to production was shaped</b> — and it's work I'm still actively making.</p>
+
+      <div class="hero-still">
+        <div class="big-frame">
+          <img src="../assets/film-colmillos-bts.jpg" alt="Behind the scenes on Colmillos — directing on set beside the camera" />
+          <div class="bf-scrim"></div>
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <span class="tc">FRAME 01 / 15</span>
+          <span class="slate">Colmillos · on set · dir. Glenn Ortega</span>
+        </div>
+        <div class="strip-thumbs">
+          <div class="th"><span class="n">Colmillos</span></div>
+          <div class="th"><span class="n">Crisálida</span></div>
+          <div class="th"><span class="n">Pez Pablo</span></div>
+          <div class="th"><span class="n">+ 12 more</span></div>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <div class="m"><div class="k">Films</div><div class="v">15 short films</div></div>
+        <div class="m"><div class="k">Context</div><div class="v">University &amp;<br>independent</div></div>
+        <div class="m"><div class="k">Roles</div><div class="v">Director · Writer<br>Producer · DP</div></div>
+        <div class="m"><div class="k">Stages</div><div class="v">Pre → Shoot<br>→ Post</div></div>
+      </div>
+      <div class="pad-b"></div>
+    </div>
+    <div class="grain"></div>
+  </header>
+
+  <main>
+    <!-- ORIGIN -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">The origin</span></div>
+        <div class="split">
+          <h2>Where my approach to production <span class="u">was shaped.</span></h2>
+          <div class="prose">
+            <p>Across 15 short films — university and independent projects — I've worked at every stage of the process and in nearly every department, taking on different roles from one project to the next: directing, writing, producing, cinematography and lighting.</p>
+            <p class="pull">Every producer role I take on today carries the same instinct: holding the creative idea while managing the details and the people who make it real.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECTING PULL + DEPARTMENTS -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">Vision &amp; leadership</span></div>
+        <div class="split">
+          <h2>My strongest pull: directing, writing &amp; <span class="u">producing.</span></h2>
+          <div class="prose">
+            <p>The work that lives at the intersection of creative vision and team leadership. I love shaping a story and then building and guiding the team that brings it to life.</p>
+          </div>
+        </div>
+        <div class="depts">
+          <div class="dept lead"><div class="di">Lead</div><h4>Directing</h4></div>
+          <div class="dept lead"><div class="di">Lead</div><h4>Writing</h4></div>
+          <div class="dept lead"><div class="di">Lead</div><h4>Producing</h4></div>
+          <div class="dept"><div class="di">Craft</div><h4>Cinematography</h4></div>
+          <div class="dept"><div class="di">Craft</div><h4>Lighting</h4></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRAFT -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Craft &amp; process</span></div>
+        <div class="split" style="margin-bottom:clamp(32px,5vw,52px);">
+          <h2>Involved at <span class="u">every stage.</span></h2>
+          <div class="prose">
+            <p>From pre-production through post — script and planning, the shoot, and the edit. I've directed performances from both adult and <b>first-time child actors</b>, and I shoot and light on professional cinema and mirrorless systems.</p>
+          </div>
+        </div>
+        <div class="craft">
+          <div class="cstep"><div class="cn">01</div><h4>Pre-production</h4><p>Script, planning and building the team and the vision.</p></div>
+          <div class="cstep"><div class="cn">02</div><h4>The shoot</h4><p>Directing performance, camera and lighting on set.</p></div>
+          <div class="cstep"><div class="cn">03</div><h4>Post</h4><p>The edit — shaping the story to its final form.</p></div>
+        </div>
+        <div class="gear">
+          <div class="gcard"><div class="gk">Camera</div><div class="gv">Blackmagic<br>Pocket 6K</div><p class="gd">Cinema body for high-end image and color.</p></div>
+          <div class="gcard"><div class="gk">Camera</div><div class="gv">Sony FX6</div><p class="gd">Cinema-line camera for professional shoots.</p></div>
+          <div class="gcard"><div class="gk">Direction</div><div class="gv">Adult &amp; child<br>performances</div><p class="gd">Directed both seasoned and first-time child actors.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED FILMS -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">Selected short films</span></div>
+        <div class="films">
+          <div class="film-card"><div class="poster"><span class="status">In post-production</span><img src="../assets/film-colmillos.jpg" alt="Black-and-white still from Colmillos — two figures in low-key light" /></div><div class="cap"><div class="ti">Colmillos</div><div class="rl">Director · Writer</div></div></div>
+          <div class="film-card"><div class="poster"><img src="../assets/film-crisalida.jpg" alt="Poster for Crisálida — a butterfly resting on a face lit with rainbow light" /></div><div class="cap"><div class="ti">Crisálida</div><div class="rl">Producer</div></div></div>
+          <div class="film-card"><div class="poster"><img src="../assets/film-pezpablo-poster.jpg" alt="Official poster for El Pez Pablo — a man and a girl seen through a fish tank" /></div><div class="cap"><div class="ti">Pez Pablo</div><div class="rl">Grip</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STILLS GALLERY -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">05</span><span class="ttl">Stills</span></div>
+        <div class="csheet">
+          <div class="frame f-half"><img src="../assets/film-parentesis.jpg" alt="Black-and-white film still from Paréntesis — actress in low-key lighting" /><div class="scrim"></div><span class="lab over"><span class="nm">Paréntesis · Gaffer</span><span class="no">01</span></span></div>
+          <div class="frame f-half"><img src="../assets/film-donitas.jpg" alt="Cinematic still from a Bimbo Donitas commercial — donuts on a table with a figure behind" /><div class="scrim"></div><span class="lab over"><span class="nm">Donitas Bimbo · DP</span><span class="no">02</span></span></div>
+          <div class="frame f-half"><img src="../assets/film-tierrafertil-2.jpg" alt="Still from Tierra Fértil — two people reading on a library floor" /><div class="scrim"></div><span class="lab over"><span class="nm">Tierra Fértil · 2nd AC</span><span class="no">03</span></span></div>
+          <div class="frame f-half"><img src="../assets/film-tierrafertil-1.jpg" alt="Warm low-light still from Tierra Fértil — two figures by a lamp" /><div class="scrim"></div><span class="lab over"><span class="nm">Tierra Fértil · 2nd AC</span><span class="no">04</span></span></div>
+          <div class="frame f-full"><img src="../assets/film-pezpablo-2.jpg" alt="Warm backlit still from Pez Pablo — a man holding a child against a window" /><div class="scrim"></div><span class="lab over"><span class="nm">Pez Pablo · Scene</span><span class="no">05</span></span></div>
+        </div>
+        <p class="sheet-note">Selected stills · Paréntesis, Donitas Bimbo, Tierra Fértil &amp; Pez Pablo.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Have a story worth<br>telling<span class="a">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="a">.</span></span>
+      <span class="m">Creative Producer — Made for the screen</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

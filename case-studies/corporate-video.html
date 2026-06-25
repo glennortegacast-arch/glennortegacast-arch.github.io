@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Corporate Video Production — Gerresheimer Querétaro · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+    /* cinema dark */
+    --film: #0C0E12;
+    --film-2: #14171E;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .ph { position: relative; background-color: #E7EAEF; background-image: repeating-linear-gradient(135deg, rgba(31,41,55,0.07) 0 1px, transparent 1px 12px); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ph .ph-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.86); border: 1px solid var(--line); padding: 6px 11px; border-radius: 999px; }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav.on-film { background: color-mix(in srgb, var(--film) 70%, transparent); }
+  .nav.on-film .back, .nav.on-film .nav-brand { color: #EAECEF; }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; transition: color 0.3s; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: color 0.3s; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* ===== Cinematic hero ===== */
+  .film-hero { position: relative; background: var(--film); color: #EAECEF; overflow: hidden; padding: 122px 0 0; }
+  .film-hero .grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
+  .film-hero .glow { position: absolute; z-index: 0; width: 60vw; height: 60vw; max-width: 760px; max-height: 760px; right: -10%; top: -16%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,107,255,0.28) 0%, rgba(18,184,134,0.12) 38%, transparent 68%); filter: blur(8px); }
+  .film-hero .wrap { position: relative; z-index: 2; }
+  .fh-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .fh-eyebrow .label { color: #8fb0ff; }
+  .fh-eyebrow .rec { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8fb0ff; }
+  .fh-eyebrow .rec::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: #8fb0ff; }
+  .fh-eyebrow::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.16); }
+  .film-hero h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 86px); line-height: 0.97; margin: 0 0 26px; text-wrap: balance; max-width: 16ch; }
+  .film-hero h1 em { font-style: normal; color: #8fb0ff; }
+  .film-hero .fh-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #b8bdc7; max-width: 58ch; margin: 0; }
+  .film-hero .fh-sub b { color: #fff; font-weight: 500; }
+
+  /* letterboxed film still (photo) + contact strip */
+  .film-strip { position: relative; z-index: 2; margin-top: 48px; }
+  .film-frame { position: relative; aspect-ratio: 21 / 9; background: #05060a; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 16px); display: flex; align-items: center; justify-content: center; }
+  .film-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .film-frame .corner { position: absolute; width: 16px; height: 16px; border: 1.5px solid rgba(255,255,255,0.4); }
+  .film-frame .corner.tl { left: 14px; top: 14px; border-right: none; border-bottom: none; }
+  .film-frame .corner.br { right: 14px; bottom: 14px; border-left: none; border-top: none; }
+  .film-frame .ph-note { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .film-frame .tc { position: absolute; right: 16px; top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); }
+  .film-frame .fl { position: absolute; left: 16px; bottom: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  /* thumbnail contact strip under the hero still */
+  .strip-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+  .strip-thumbs .th { position: relative; aspect-ratio: 16 / 10; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #05060a; background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 14px); }
+  .strip-thumbs .th img { width: 100%; height: 100%; object-fit: cover; }
+  .strip-thumbs .th::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,6,10,0.6), transparent 55%); pointer-events: none; }
+  .strip-thumbs .th .n { z-index: 1; }
+  .strip-thumbs .th .n { position: absolute; left: 9px; bottom: 7px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; color: rgba(255,255,255,0.45); }
+
+  /* ===== meta ribbon (on film) ===== */
+  .fh-meta { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; margin: 28px 0 0; }
+  .fh-meta .m { background: var(--film-2); padding: 20px 22px; }
+  .fh-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7f8694; margin-bottom: 8px; }
+  .fh-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: #EAECEF; }
+  .film-hero .pad-b { height: clamp(56px, 8vw, 92px); }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--blue) 24%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--blue); padding-left: 20px; margin: 0 0 26px; }
+
+  /* roles trio */
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 30px; }
+  .roles .r { border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 20px; background: var(--surface); }
+  .roles .r .ic { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 0.06em; }
+  .roles .r h4 { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; margin: 12px 0 6px; }
+  .roles .r p { font-family: var(--body); font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 0; }
+
+  /* ===== Pipeline ===== */
+  .pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
+  .pstep { position: relative; padding: 28px 22px 30px; border: 1px solid var(--line); border-right: none; background: var(--surface); transition: background 0.3s; }
+  .pstep:first-child { border-radius: 14px 0 0 14px; }
+  .pstep:last-child { border-right: 1px solid var(--line); border-radius: 0 14px 14px 0; }
+  .pstep:hover { background: color-mix(in srgb, var(--blue) 5%, var(--surface)); }
+  .pstep .pn { font-family: var(--mono); font-size: 12px; color: var(--blue); letter-spacing: 0.06em; }
+  .pstep h4 { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; margin: 14px 0 9px; }
+  .pstep p { font-family: var(--body); font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 0; }
+  .pstep .conn { position: absolute; right: -7px; top: 38px; width: 13px; height: 13px; border-top: 1.5px solid var(--blue); border-right: 1.5px solid var(--blue); transform: rotate(45deg); background: var(--surface); z-index: 2; }
+  .pstep:last-child .conn { display: none; }
+
+  /* ===== Gear strip ===== */
+  .gear { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+  .gcard { background: var(--graphite); color: #EAECEF; border-radius: 14px; padding: 24px 24px 26px; position: relative; overflow: hidden; }
+  .gcard::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 130px; height: 130px; border-radius: 50%; background: rgba(45,107,255,0.16); }
+  .gcard.ai::after { background: rgba(18,184,134,0.2); }
+  .gcard .gk { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8fb0ff; }
+  .gcard.ai .gk { color: #5fe3b4; }
+  .gcard .gv { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.02em; margin: 14px 0 8px; line-height: 1.05; position: relative; z-index: 1; }
+  .gcard .gd { font-family: var(--body); font-size: 15px; line-height: 1.5; color: #aeb6c2; margin: 0; position: relative; z-index: 1; }
+
+  /* ===== Contact sheet gallery ===== */
+  .sheet { background: var(--film); color: #EAECEF; position: relative; overflow: hidden; }
+  .sheet .grain { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
+  .sheet .wrap { position: relative; z-index: 1; }
+  .sheet .sec-head .ttl { color: #8b94a3; }
+  .sheet .sec-head .num { color: #8fb0ff; }
+  .csheet { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .frame { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.09); background: #05060a;
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 15px); transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
+  .frame:hover { transform: translateY(-4px); }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame .lab { position: absolute; left: 10px; bottom: 9px; right: 10px; display: flex; justify-content: space-between; gap: 8px; }
+  .frame .lab .nm { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+  .frame .lab .no { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.4); }
+  .frame.f-wide { grid-column: span 4; aspect-ratio: 16 / 9; }
+  .frame.f-sq { grid-column: span 2; aspect-ratio: 4 / 5; }
+  .frame.f-third { grid-column: span 2; aspect-ratio: 4 / 3; }
+  .frame.f-half { grid-column: span 3; aspect-ratio: 16 / 9; }
+  .frame.f-full { grid-column: span 6; aspect-ratio: 21 / 9; }
+  .frame .scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(5,6,10,0.6), transparent 42%); pointer-events: none; }
+  .frame .lab { z-index: 2; }
+  .sheet-note { font-family: var(--mono); font-size: 12px; color: #7f8694; margin-top: 18px; letter-spacing: 0.02em; }
+
+  /* ===== Impact ===== */
+  .impact { background: var(--graphite); color: #EAECEF; }
+  .impact .sec-head .ttl { color: #8b94a3; }
+  .impact .sec-head .num { color: var(--green); }
+  .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+  .impact-stats .st { background: var(--graphite); padding: 36px 30px; }
+  .impact-stats .big { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(38px, 5vw, 66px); line-height: 0.9; color: #fff; }
+  .impact-stats .big .g { color: var(--green); }
+  .impact-stats .cap { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: #aeb6c2; margin-top: 14px; line-height: 1.4; }
+  .impact-body { max-width: 66ch; }
+  .impact-body p { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; color: #c7cdd6; margin: 0; }
+  .impact-body p b { color: #fff; font-weight: 500; }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--blue); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--blue); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--green); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .fh-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .roles { grid-template-columns: 1fr; }
+    .pipe { grid-template-columns: 1fr; }
+    .pstep { border-right: 1px solid var(--line); border-bottom: none; }
+    .pstep:first-child { border-radius: 14px 14px 0 0; }
+    .pstep:last-child { border-radius: 0 0 14px 14px; border-bottom: 1px solid var(--line); }
+    .pstep .conn { right: auto; left: 38px; top: auto; bottom: -7px; transform: rotate(135deg); }
+    .gear { grid-template-columns: 1fr; }
+    .impact-stats { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .film-frame { aspect-ratio: 16 / 9; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav on-film" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="film-hero" id="hero">
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="fh-eyebrow">
+        <span class="label">Case Study · Audiovisual</span>
+        <span class="rec">Stills</span>
+      </div>
+      <h1>Corporate Video <em>Production.</em></h1>
+      <p class="fh-sub"><b>A body of internal and organizational video for the plant — health, safety and production across manufacturing lines, for employees, visitors and a major client.</b> Directed, shot and edited end to end.</p>
+
+      <div class="film-strip">
+        <div class="film-frame">
+          <img src="../assets/cv-facility.jpg" alt="Establishing shot of the Gerresheimer Querétaro facility — an employee walking toward the entrance" />
+          <span class="corner tl"></span>
+          <span class="corner br"></span>
+          <span class="tc">FRAME 01 / 05</span>
+        </div>
+        <div class="strip-thumbs">
+          <div class="th"><img src="../assets/cv-operator.jpg" alt="Production operator on the line" /></div>
+          <div class="th"><img src="../assets/cv-beard.jpg" alt="Employee interview outdoors" /></div>
+          <div class="th"><img src="../assets/cv-delivery.jpg" alt="Employee handing over a package" /></div>
+          <div class="th"><img src="../assets/cv-receive.jpg" alt="Person receiving a package and smiling" /></div>
+        </div>
+      </div>
+
+      <div class="fh-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Director · DP · Editor</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Cycle</div><div class="v">Script → Shoot<br>→ Edit → Deliver</div></div>
+        <div class="m"><div class="k">Audience</div><div class="v">Employees,<br>visitors &amp; a client</div></div>
+      </div>
+      <div class="pad-b"></div>
+    </div>
+    <div class="grain"></div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>One plant, many stories — <span class="u">told on screen.</span></h2>
+          <div class="prose">
+            <p>I produced a body of corporate video content for the plant: internal informational videos and organizational pieces covering health, safety, and production across different manufacturing lines.</p>
+            <p class="pull">Made for two audiences — employees and plant visitors — including one piece produced specifically to showcase the operation to a major client.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY ROLE -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">My Role</span></div>
+        <div class="split">
+          <h2>The full production cycle — <span class="u">owned end to end.</span></h2>
+          <div class="prose">
+            <p>I owned direction, cinematography and editing. Depending on the project, I worked solo, coordinated external vendors, or collaborated with the internal communications team to bring each video to completion.</p>
+          </div>
+        </div>
+        <div class="roles">
+          <div class="r"><div class="ic">01</div><h4>Director</h4><p>Concept, narrative and on-set direction for every piece.</p></div>
+          <div class="r"><div class="ic">02</div><h4>Cinematographer</h4><p>Camera, lighting and look — shot on cinema &amp; mirrorless bodies.</p></div>
+          <div class="r"><div class="ic">03</div><h4>Editor</h4><p>Cut, sound and finishing through to final delivery.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Process &amp; pipeline</span></div>
+        <div class="pipe">
+          <div class="pstep"><div class="pn">01</div><h4>Script</h4><p>Define the message and structure before the camera rolls.</p><span class="conn"></span></div>
+          <div class="pstep"><div class="pn">02</div><h4>Shoot</h4><p>Capture on professional cinema and mirrorless bodies.</p><span class="conn"></span></div>
+          <div class="pstep"><div class="pn">03</div><h4>Edit</h4><p>Cut, grade and score — including AI-generated original music.</p><span class="conn"></span></div>
+          <div class="pstep"><div class="pn">04</div><h4>Deliver</h4><p>Finish and deploy across the plant's internal screens.</p></div>
+        </div>
+
+        <div class="gear">
+          <div class="gcard"><div class="gk">Camera</div><div class="gv">Blackmagic<br>Pocket 6K</div><p class="gd">Cinema body for high-end production pieces.</p></div>
+          <div class="gcard"><div class="gk">Camera</div><div class="gv">Sony A7 III</div><p class="gd">Mirrorless for agile, run-and-gun coverage.</p></div>
+          <div class="gcard ai"><div class="gk">AI-assisted</div><div class="gv">Original music</div><p class="gd">AI integrated to generate scoring — craft paired with AI production.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec impact line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">Impact</span></div>
+        <div class="impact-stats">
+          <div class="st"><div class="big">2</div><div class="cap">audiences served — employees &amp; visitors</div></div>
+          <div class="st"><div class="big">100<span class="g">%</span></div><div class="cap">owned: direction, cinematography &amp; editing</div></div>
+          <div class="st"><div class="big">AI<span class="g">+</span></div><div class="cap">original scoring integrated into the workflow</div></div>
+        </div>
+        <div class="impact-body">
+          <p>The videos were deployed across the plant's internal screens, <b>delivering consistent health, safety and production messaging</b> to employees and visitors throughout the facility — hands-on craft paired with AI-assisted production.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Have a story worth<br>shooting<span class="g">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const hero = document.getElementById('hero');
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+    // keep nav text light only while over the dark hero
+    const heroBottom = hero.offsetHeight - 68;
+    nav.classList.toggle('on-film', window.scrollY < heroBottom);
+  }
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

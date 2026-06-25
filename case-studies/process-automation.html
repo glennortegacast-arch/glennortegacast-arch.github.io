@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Process Automation — Power Automate &amp; ManyChat · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .ph { position: relative; background-color: #E7EAEF; background-image: repeating-linear-gradient(135deg, rgba(31,41,55,0.07) 0 1px, transparent 1px 12px); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ph .ph-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.86); border: 1px solid var(--line); padding: 6px 11px; border-radius: 999px; }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* ===== Hero ===== */
+  .ch { padding: 122px 0 0; }
+  .ch-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .ch-eyebrow .label { color: var(--blue); }
+  .ch-eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .ch h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 84px); line-height: 0.98; margin: 0 0 28px; text-wrap: balance; max-width: 15ch; }
+  .ch-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #2c313a; max-width: 60ch; margin: 0; }
+  .ch-sub b { font-weight: 500; }
+
+  .ch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 48px 0 0; }
+  .ch-meta .m { background: var(--surface); padding: 20px 22px; }
+  .ch-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  .hero-img { margin-top: 44px; }
+  .hero-img .ph { aspect-ratio: 21 / 9; border-radius: 14px; }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--blue) 24%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--green); padding-left: 20px; margin: 0 0 26px; }
+
+  /* ===== Build blocks ===== */
+  .builds { display: grid; gap: 22px; }
+  .build { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 0.85fr; }
+  .build:nth-child(even) { grid-template-columns: 0.85fr 1fr; }
+  .build:nth-child(even) .build-body { order: 2; }
+  .build-body { padding: clamp(28px, 3.4vw, 46px); display: flex; flex-direction: column; }
+  .build-tool { display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+  .build-tool .pill { width: 9px; height: 9px; border-radius: 3px; background: var(--blue); }
+  .build:nth-child(even) .build-tool { color: var(--green); }
+  .build:nth-child(even) .build-tool .pill { background: var(--green); }
+  .build h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.025em; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.04; margin: 0 0 14px; }
+  .build p { font-family: var(--body); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; color: #2c313a; margin: 0 0 22px; }
+  .build .steps { list-style: none; padding: 0; margin: 0 0 4px; display: flex; flex-direction: column; gap: 11px; }
+  .build .steps li { position: relative; padding-left: 26px; font-family: var(--body); font-size: 16px; line-height: 1.45; color: #3c424c; }
+  .build .steps li::before { content: ""; position: absolute; left: 0; top: 8px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--blue); }
+  .build:nth-child(even) .steps li::before { border-color: var(--green); }
+  .build-stat { margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line); display: flex; gap: 30px; }
+  .build-stat .s .n { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(28px, 3vw, 40px); line-height: 1; color: var(--ink); }
+  .build-stat .s .l { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); margin-top: 7px; }
+  .build-visual { position: relative; min-height: 280px; }
+  .build-visual .ph { position: absolute; inset: 0; width: 100%; height: 100%; border: none; border-left: 1px solid var(--line); }
+  .build:nth-child(even) .build-visual .ph { border-left: none; border-right: 1px solid var(--line); }
+
+  /* ===== CSS automation diagrams (no photos / no real data) ===== */
+  .flow-hero { aspect-ratio: 21/9; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(18px,3vw,40px); background: linear-gradient(150deg, #1F2937 0%, #11141A 100%); }
+  .flow-hero .corner-note { position: absolute; left: 18px; top: 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .flow-hero .track { display: flex; align-items: center; width: 100%; max-width: 900px; }
+  .fnode { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 14px; padding: 16px 18px; color: #EAECEF; min-width: 130px; text-align: center; position: relative; z-index: 1; backdrop-filter: blur(4px); }
+  .fnode .ic { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #8fb0ff; }
+  .fnode .t { font-family: var(--display); font-weight: 600; font-size: clamp(15px,1.7vw,19px); letter-spacing: -0.01em; margin-top: 8px; }
+  .fnode .d { font-family: var(--mono); font-size: 10px; color: #aeb6c2; margin-top: 6px; }
+  .fwire { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent); position: relative; }
+  .fwire::after { content: ""; position: absolute; top: 50%; left: 0; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 10px 1px var(--blue); }
+  @media (prefers-reduced-motion: no-preference) { .fwire::after { animation: flowdot 2.6s linear infinite; } @keyframes flowdot { from { left: 0; } to { left: 100%; } } .fwire.w2::after { animation-delay: 1.3s; background: var(--green); box-shadow: 0 0 10px 1px var(--green); } }
+
+  .build-viz { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(22px,3vw,40px); border-left: 1px solid var(--line); }
+  .build:nth-child(even) .build-viz { border-left: none; border-right: 1px solid var(--line); }
+  /* Power Automate schematic */
+  .pa-flow { display: flex; flex-direction: column; gap: 9px; width: 100%; max-width: 320px; }
+  .pa-tile { background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 14px 15px; box-shadow: 0 10px 24px -18px rgba(17,20,26,0.4); }
+  .pa-tile .h { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 8px; }
+  .pa-tile .h::before { content: ""; width: 9px; height: 9px; border-radius: 3px; background: var(--blue); }
+  .pa-tile.email .h { color: var(--green); } .pa-tile.email .h::before { background: var(--green); }
+  .pa-tile .rl { height: 8px; border-radius: 999px; background: #e4e9ee; margin-top: 9px; }
+  .pa-tile .rl.w1 { width: 90%; } .pa-tile .rl.w2 { width: 64%; } .pa-tile .rl.w3 { width: 76%; }
+  .pa-tile .subject { font-family: var(--display); font-weight: 600; font-size: 13.5px; letter-spacing: -0.01em; color: var(--ink); margin-top: 4px; }
+  .pa-tile .btn-mini { display: inline-block; margin-top: 11px; font-family: var(--display); font-weight: 600; font-size: 11px; color: #fff; background: var(--graphite); padding: 7px 12px; border-radius: 6px; }
+  .pa-arrow { align-self: center; color: var(--muted); font-size: 14px; line-height: 1; }
+  /* ManyChat conversation */
+  .chat { width: 100%; max-width: 282px; display: flex; flex-direction: column; gap: 8px; }
+  .bubble { padding: 9px 13px; border-radius: 15px; font-family: var(--body); font-size: 13px; line-height: 1.35; max-width: 82%; }
+  .bubble.bot { background: var(--surface); border: 1px solid var(--line); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 5px; }
+  .bubble.user { background: var(--green); color: #04261b; align-self: flex-end; border-bottom-right-radius: 5px; font-family: var(--display); font-weight: 600; }
+  .chat .sched { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--green); border: 1px dashed color-mix(in srgb, var(--green) 50%, var(--line)); border-radius: 999px; padding: 7px 12px; }
+  .chat .sched::before { content: "\2713"; font-weight: 700; }
+
+  /* ===== Impact ===== */
+  .impact { background: var(--graphite); color: #EAECEF; }
+  .impact .sec-head .ttl { color: #8b94a3; }
+  .impact .sec-head .num { color: var(--green); }
+  .impact-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+  .impact-stats .st { background: var(--graphite); padding: 34px 26px; }
+  .impact-stats .big { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(38px, 4.6vw, 62px); line-height: 0.9; color: #fff; }
+  .impact-stats .big .g { color: var(--green); }
+  .impact-stats .cap { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: #aeb6c2; margin-top: 14px; line-height: 1.4; }
+  .impact-body { max-width: 64ch; }
+  .impact-body p { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; color: #c7cdd6; margin: 0; }
+  .impact-body p b { color: #fff; font-weight: 500; }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--green); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--blue); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--green); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .ch-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .build, .build:nth-child(even) { grid-template-columns: 1fr; }
+    .build-visual { min-height: 220px; order: 2 !important; }
+    .build:nth-child(even) .build-body { order: 1; }
+    .build-visual .ph, .build:nth-child(even) .build-visual .ph { border: none; border-top: 1px solid var(--line); }
+    .build-viz, .build:nth-child(even) .build-viz { border: none; border-top: 1px solid var(--line); position: relative; min-height: 240px; }
+    .impact-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .hero-img .ph { aspect-ratio: 4 / 3; }
+    .flow-hero { aspect-ratio: auto; }
+    .flow-hero .track { flex-direction: column; gap: 0; }
+    .flow-hero .fwire { width: 2px; height: 30px; flex: none; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.28), transparent); }
+    .flow-hero .fwire::after { left: 50%; margin-left: -4px; top: 0; }
+    @media (prefers-reduced-motion: no-preference) { .flow-hero .fwire::after { animation: flowdotv 2.6s linear infinite; } @keyframes flowdotv { from { top: 0; } to { top: 100%; } } }
+    .build-stat { gap: 22px; }
+  }
+  @media (max-width: 460px) {
+    .impact-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="ch">
+    <div class="wrap">
+      <div class="ch-eyebrow"><span class="label">Case Study · AI Workflows</span></div>
+      <h1>Process Automation</h1>
+      <p class="ch-sub"><b>Spotting high-volume manual processes across the plant and replacing them with automated systems that scale — built with Power Automate and ManyChat.</b></p>
+
+      <div class="ch-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Workflow Automation<br>Process Design</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Tools</div><div class="v">Power Automate<br>ManyChat</div></div>
+        <div class="m"><div class="k">Built</div><div class="v">2 automated<br>systems</div></div>
+      </div>
+
+      <div class="hero-img">
+        <div class="flow-hero">
+          <span class="corner-note">Automation map · schematic</span>
+          <div class="track">
+            <div class="fnode"><div class="ic">Trigger</div><div class="t">Schedule / lead</div><div class="d">Excel · FB · WhatsApp</div></div>
+            <div class="fwire"></div>
+            <div class="fnode"><div class="ic">Logic</div><div class="t">Filter &amp; qualify</div><div class="d">rules · conditions</div></div>
+            <div class="fwire w2"></div>
+            <div class="fnode"><div class="ic">Action</div><div class="t">Notify / schedule</div><div class="d">email · booking</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>Repetitive work that <span class="u">quietly drained the team.</span></h2>
+          <div class="prose">
+            <p>Across the plant, several high-volume, repetitive processes still ran manually — from tracking training-compliance documents for new hires to screening and scheduling blue-collar recruitment candidates one by one.</p>
+            <p class="pull">Each was slow, error-prone, and a recurring drain on the team's time.</p>
+            <p>I identified these as automation opportunities and built solutions to remove the manual overhead — turning recurring effort into systems that run themselves.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I BUILT -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">What I built</span></div>
+        <div class="builds">
+
+          <article class="build">
+            <div class="build-body">
+              <div class="build-tool"><span class="pill"></span>Power Automate</div>
+              <h3>Compliance reminders</h3>
+              <p>Every new hire completes a 15-day training period, after which their Cardex document is due. I built a flow that runs the whole chase automatically — no manual intervention.</p>
+              <ul class="steps">
+                <li>Reads from a central Excel tracker</li>
+                <li>Filters records by supervisor and counts outstanding documents</li>
+                <li>Sends a personalized reminder email in custom on-brand HTML</li>
+                <li>Runs on an automated schedule</li>
+              </ul>
+              <div class="build-stat">
+                <div class="s"><div class="n">20+</div><div class="l">supervisors reached</div></div>
+                <div class="s"><div class="n">150+</div><div class="l">documents tracked</div></div>
+                <div class="s"><div class="n">Mon 8AM</div><div class="l">weekly auto-run</div></div>
+              </div>
+            </div>
+            <div class="build-visual"><div class="build-viz">
+              <div class="pa-flow">
+                <div class="pa-tile"><div class="h">Excel tracker</div><div class="rl w1"></div><div class="rl w2"></div><div class="rl w3"></div></div>
+                <div class="pa-arrow">↓ &nbsp;filter by supervisor · count due</div>
+                <div class="pa-tile email"><div class="h">Reminder email</div><div class="subject">3 documents pending review</div><div class="rl w1"></div><div class="rl w2"></div><span class="btn-mini">Review now</span></div>
+              </div>
+            </div></div>
+          </article>
+
+          <article class="build">
+            <div class="build-body">
+              <div class="build-tool"><span class="pill"></span>ManyChat</div>
+              <h3>Talent acquisition bot</h3>
+              <p>For continuous blue-collar hiring, I designed an automated conversational flow that hands recruiters pre-filtered, ready-to-meet candidates instead of raw leads.</p>
+              <ul class="steps">
+                <li>Vacancies on Facebook &amp; WhatsApp route candidates into a chat</li>
+                <li>Pre-screens applicants through qualifying questions</li>
+                <li>Auto-schedules qualified candidates for an in-person plant visit</li>
+                <li>Delivers recruiters a ready-to-meet shortlist</li>
+              </ul>
+              <div class="build-stat">
+                <div class="s"><div class="n">73</div><div class="l">candidates in 2 months</div></div>
+                <div class="s"><div class="n">1:1 → auto</div><div class="l">scalable pipeline</div></div>
+              </div>
+            </div>
+            <div class="build-visual"><div class="build-viz">
+              <div class="chat">
+                <div class="bubble bot">Hi! Thanks for your interest in joining the plant. Ready for a few quick questions?</div>
+                <div class="bubble user">Yes</div>
+                <div class="bubble bot">Great — are you available for an in-person plant visit this week?</div>
+                <div class="bubble user">I am</div>
+                <div class="sched">Visit scheduled · sent to recruiter</div>
+              </div>
+            </div></div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec impact line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Impact</span></div>
+        <div class="impact-stats">
+          <div class="st"><div class="big">0</div><div class="cap">ongoing effort on a once-weekly manual task</div></div>
+          <div class="st"><div class="big">150<span class="g">+</span></div><div class="cap">compliance documents tracked automatically</div></div>
+          <div class="st"><div class="big">73</div><div class="cap">candidates captured in two months</div></div>
+          <div class="st"><div class="big"><span class="g">2</span></div><div class="cap">manual processes replaced by automated systems</div></div>
+        </div>
+        <div class="impact-body">
+          <p>Together, these projects demonstrate a repeatable approach: <b>spot a manual, repetitive process and replace it with an automated system that scales</b> — reducing overhead, cutting errors and accelerating time-to-interview.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Have a process worth<br>automating<span class="g">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

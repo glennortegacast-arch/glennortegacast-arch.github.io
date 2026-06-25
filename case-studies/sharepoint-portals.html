@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SharePoint Portals — North America &amp; Mexico · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+
+    /* SharePoint teal — this case study's signature accent */
+    --sp-deep: #036C70;
+    --sp: #138488;
+    --sp-mid: #1FA5A9;
+    --sp-light: #37C6D0;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sp-mid); }
+
+  /* ===== Hero ===== */
+  .ch { padding: 122px 0 0; }
+  .ch-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .ch-eyebrow .label { color: var(--sp); }
+  .ch-eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .ch h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 84px); line-height: 0.98; margin: 0 0 28px; text-wrap: balance; max-width: 15ch; }
+  .ch-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #2c313a; max-width: 60ch; margin: 0; }
+  .ch-sub b { font-weight: 500; }
+
+  .ch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 48px 0 0; }
+  .ch-meta .m { background: var(--surface); padding: 20px 22px; }
+  .ch-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  /* ===== Hero stage (graphic, no screenshots) ===== */
+  .sp-stage {
+    position: relative; margin-top: 44px; aspect-ratio: 21 / 9; border-radius: 16px; overflow: hidden;
+    background: radial-gradient(120% 140% at 72% 18%, var(--sp-light) 0%, var(--sp-mid) 30%, var(--sp) 56%, var(--sp-deep) 100%);
+    isolation: isolate;
+  }
+  .sp-stage .rings { position: absolute; inset: 0; background: repeating-radial-gradient(circle at 72% 46%, transparent 0 46px, rgba(255,255,255,0.09) 46px 48px); z-index: 0; }
+  .sp-stage .blob { position: absolute; border-radius: 50%; z-index: 0; filter: blur(2px); }
+  .sp-stage .blob.b1 { width: 240px; height: 240px; right: 8%; top: -14%; background: rgba(255,255,255,0.12); }
+  .sp-stage .blob.b2 { width: 170px; height: 170px; right: 22%; bottom: -16%; background: rgba(3,108,112,0.4); }
+  .sp-stage .grain { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); }
+
+  .sp-logo-card {
+    position: absolute; left: clamp(28px, 5vw, 64px); top: 50%; transform: translateY(-50%);
+    background: #fff; border-radius: 18px; padding: clamp(20px, 3vw, 34px); z-index: 2;
+    box-shadow: 0 30px 60px -24px rgba(2,40,42,0.55);
+    width: clamp(180px, 26vw, 300px);
+  }
+  .sp-logo-card img { width: 100%; height: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sp-logo-card { animation: spFloat 6s ease-in-out infinite; }
+    @keyframes spFloat { 0%,100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 10px)); } }
+  }
+  .sp-chip {
+    position: absolute; z-index: 2; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+    background: rgba(255,255,255,0.92); color: var(--sp-deep); padding: 9px 15px; border-radius: 999px;
+    box-shadow: 0 14px 26px -14px rgba(2,40,42,0.5); display: inline-flex; align-items: center; gap: 8px;
+  }
+  .sp-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sp-mid); }
+  .sp-chip.na { right: 12%; top: 24%; }
+  .sp-chip.mx { right: 20%; bottom: 22%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sp-chip.na { animation: spFloat2 5.5s ease-in-out infinite; }
+    .sp-chip.mx { animation: spFloat2 5.5s ease-in-out 0.8s infinite; }
+    @keyframes spFloat2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  }
+  .sp-stage .stamp { position: absolute; right: clamp(24px, 4vw, 52px); top: clamp(20px, 3vw, 30px); z-index: 2; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.85); }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--sp); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--sp-mid) 30%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--sp-mid); padding-left: 20px; margin: 0 0 26px; }
+
+  /* ===== Regions (schematic blueprints) ===== */
+  .regions { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 36px); }
+  .region { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .region:hover { transform: translateY(-5px); box-shadow: 0 28px 48px -30px rgba(17,20,26,0.4); }
+  .region-head { display: flex; align-items: center; gap: 15px; padding: 26px 26px 20px; }
+  .region-head .flag { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(140deg, var(--sp-mid), var(--sp-deep)); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: -0.02em; flex-shrink: 0; }
+  .region-head h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.025em; font-size: 23px; margin: 0; line-height: 1.05; }
+  .region-head .sub { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); margin-top: 3px; }
+
+  /* schematic portal blueprint built from CSS — clearly abstract, not a screenshot */
+  .blueprint { margin: 0 22px; border: 1px solid var(--line); border-radius: 12px 12px 0 0; overflow: hidden; background: #FAFBFC; }
+  .bp-bar { height: 30px; background: #EEF1F4; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; padding: 0 12px; }
+  .bp-bar i { width: 8px; height: 8px; border-radius: 50%; background: #CBD2DA; }
+  .bp-bar .addr { margin-left: 10px; height: 11px; flex: 1; max-width: 160px; border-radius: 999px; background: #DBE0E6; }
+  .bp-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .bp-hero { height: 64px; border-radius: 8px; background: linear-gradient(120deg, var(--sp-mid), var(--sp-deep)); position: relative; overflow: hidden; }
+  .bp-hero::after { content: ""; position: absolute; right: -20px; top: -30px; width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.16); }
+  .bp-hero .t1 { position: absolute; left: 12px; top: 16px; width: 44%; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.85); }
+  .bp-hero .t2 { position: absolute; left: 12px; top: 32px; width: 28%; height: 7px; border-radius: 999px; background: rgba(255,255,255,0.5); }
+  .bp-quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .bp-quick span { height: 34px; border-radius: 7px; background: #EAEEF2; border: 1px solid #E0E5EA; position: relative; }
+  .bp-quick span::before { content: ""; position: absolute; left: 8px; top: 8px; width: 16px; height: 16px; border-radius: 5px; background: color-mix(in srgb, var(--sp-mid) 22%, #fff); }
+  .bp-cols { display: grid; grid-template-columns: 1.6fr 1fr; gap: 8px; }
+  .bp-feed { display: flex; flex-direction: column; gap: 7px; }
+  .bp-feed i { height: 9px; border-radius: 999px; background: #E4E9EE; }
+  .bp-feed i:nth-child(1) { width: 90%; } .bp-feed i:nth-child(2) { width: 76%; } .bp-feed i:nth-child(3) { width: 84%; } .bp-feed i:nth-child(4) { width: 60%; }
+  .bp-card { border-radius: 8px; background: #EEF1F4; border: 1px solid #E0E5EA; }
+  .bp-note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #9aa0a7; text-align: center; padding: 9px 0 0; }
+
+  .region-feats { list-style: none; margin: 18px 0 0; padding: 20px 26px 8px; display: flex; flex-direction: column; gap: 11px; }
+  .region-feats li { position: relative; padding-left: 24px; font-family: var(--body); font-size: 16px; line-height: 1.45; color: #2c313a; }
+  .region-feats li::before { content: ""; position: absolute; left: 0; top: 7px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--sp-mid); }
+  .region-tags { display: flex; flex-wrap: wrap; gap: 7px; padding: 14px 26px 26px; margin-top: auto; }
+  .region-tags span { font-family: var(--mono); font-size: 11px; color: #3c424c; border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; }
+
+  /* ===== Approach strip ===== */
+  .approach { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .ap { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px 28px; }
+  .ap .n { font-family: var(--mono); font-size: 12px; color: var(--sp); letter-spacing: 0.06em; }
+  .ap h4 { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: 21px; margin: 14px 0 10px; line-height: 1.08; }
+  .ap p { font-family: var(--body); font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+
+  /* ===== Impact ===== */
+  .impact { background: var(--graphite); color: #EAECEF; }
+  .impact .sec-head .ttl { color: #8b94a3; }
+  .impact .sec-head .num { color: var(--sp-light); }
+  .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+  .impact-stats .st { background: var(--graphite); padding: 36px 30px; }
+  .impact-stats .big { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(40px, 5.4vw, 70px); line-height: 0.9; color: #fff; }
+  .impact-stats .big .g { color: var(--sp-light); }
+  .impact-stats .cap { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: #aeb6c2; margin-top: 14px; line-height: 1.4; }
+  .impact-body { max-width: 66ch; }
+  .impact-body p { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; color: #c7cdd6; margin: 0; }
+  .impact-body p b { color: #fff; font-weight: 500; }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--sp-mid); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--sp); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--sp-mid); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; } .reveal.d2 { transition-delay: 0.16s; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .ch-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .regions { grid-template-columns: 1fr; }
+    .approach { grid-template-columns: 1fr; }
+    .impact-stats { grid-template-columns: 1fr; }
+    .sp-stage { aspect-ratio: 4 / 3; }
+    .sp-chip.na { right: 6%; top: 16%; } .sp-chip.mx { right: 10%; bottom: 14%; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .sp-stage { aspect-ratio: 3 / 4; }
+    .sp-logo-card { left: 50%; top: 30%; transform: translate(-50%, -50%); width: clamp(150px, 50vw, 220px); }
+    @media (prefers-reduced-motion: no-preference) {
+      .sp-logo-card { animation: none; }
+    }
+    .sp-chip.na { right: auto; left: 50%; top: auto; bottom: 26%; transform: translateX(-80%); }
+    .sp-chip.mx { right: auto; left: 50%; bottom: 16%; transform: translateX(-10%); }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="ch">
+    <div class="wrap">
+      <div class="ch-eyebrow"><span class="label">Case Study · Digital Production</span></div>
+      <h1>SharePoint Portals</h1>
+      <p class="ch-sub"><b>Designing and developing internal portals for two regions — North America and Mexico — turning fragmented internal communication into one structured, branded digital home.</b></p>
+
+      <div class="ch-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Digital Producer<br>Design &amp; Build</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Platform</div><div class="v">Microsoft<br>SharePoint</div></div>
+        <div class="m"><div class="k">Reach</div><div class="v">2 regions<br>NA &amp; Mexico</div></div>
+      </div>
+
+      <div class="sp-stage">
+        <div class="rings"></div>
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <span class="stamp">Internal portals · schematic</span>
+        <div class="sp-logo-card"><img src="../assets/sharepoint-logo.png" alt="Microsoft SharePoint logo" /></div>
+        <span class="sp-chip na">North America</span>
+        <span class="sp-chip mx">México</span>
+        <div class="grain"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>Internal information without <span class="u">a home to live in.</span></h2>
+          <div class="prose">
+            <p>Teams across two regions needed a single, reliable place for internal information — news, resources, quick links and shared tools. Without a structured hub, that content lived scattered across inboxes, drives and ad-hoc pages, different in every region.</p>
+            <p class="pull">The opportunity: give each region a portal that feels like one company, not a patchwork.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY ROLE -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">My Role</span></div>
+        <div class="split">
+          <h2>From requirements to a <span class="u">functional, branded portal.</span></h2>
+          <div class="prose">
+            <p>I owned the digital production end to end: gathering what each region actually needed, shaping the information architecture, and designing and building the portals directly in SharePoint — on-brand, navigable and ready for teams to use day to day.</p>
+            <p>One shared design language, adapted to two regional realities — so North America and Mexico read as the same system while serving their own audiences.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGIONS -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Two regional portals</span></div>
+        <div class="regions">
+
+          <article class="region reveal">
+            <div class="region-head">
+              <span class="flag">NA</span>
+              <div>
+                <h3>North America</h3>
+                <div class="sub">Regional internal portal</div>
+              </div>
+            </div>
+            <div class="blueprint" aria-hidden="true">
+              <div class="bp-bar"><i></i><i></i><i></i><span class="addr"></span></div>
+              <div class="bp-body">
+                <div class="bp-hero"><span class="t1"></span><span class="t2"></span></div>
+                <div class="bp-quick"><span></span><span></span><span></span><span></span></div>
+                <div class="bp-cols">
+                  <div class="bp-feed"><i></i><i></i><i></i><i></i></div>
+                  <div class="bp-card"></div>
+                </div>
+              </div>
+            </div>
+            <div class="bp-note">Layout schematic — not the live portal</div>
+            <ul class="region-feats">
+              <li>Branded landing with news &amp; announcements</li>
+              <li>Quick-link hub to regional tools &amp; resources</li>
+              <li>Structured navigation and document spaces</li>
+            </ul>
+            <div class="region-tags"><span>Information architecture</span><span>Build</span><span>Branding</span></div>
+          </article>
+
+          <article class="region reveal d1">
+            <div class="region-head">
+              <span class="flag">MX</span>
+              <div>
+                <h3>México</h3>
+                <div class="sub">Regional internal portal</div>
+              </div>
+            </div>
+            <div class="blueprint" aria-hidden="true">
+              <div class="bp-bar"><i></i><i></i><i></i><span class="addr"></span></div>
+              <div class="bp-body">
+                <div class="bp-hero"><span class="t1"></span><span class="t2"></span></div>
+                <div class="bp-quick"><span></span><span></span><span></span><span></span></div>
+                <div class="bp-cols">
+                  <div class="bp-feed"><i></i><i></i><i></i><i></i></div>
+                  <div class="bp-card"></div>
+                </div>
+              </div>
+            </div>
+            <div class="bp-note">Layout schematic — not the live portal</div>
+            <ul class="region-feats">
+              <li>Same design system, localized for the region</li>
+              <li>Region-specific resources &amp; communications</li>
+              <li>Consistent components shared with North America</li>
+            </ul>
+            <div class="region-tags"><span>Localization</span><span>Build</span><span>Consistency</span></div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">How I built it</span></div>
+        <div class="approach">
+          <div class="ap reveal">
+            <div class="n">01</div>
+            <h4>Listen &amp; map</h4>
+            <p>Captured what each region needed, then shaped the information architecture before touching a single page.</p>
+          </div>
+          <div class="ap reveal d1">
+            <div class="n">02</div>
+            <h4>Design the system</h4>
+            <p>One branded component set — navigation, hero, quick links, news — built to flex across both regions.</p>
+          </div>
+          <div class="ap reveal d2">
+            <div class="n">03</div>
+            <h4>Build &amp; hand off</h4>
+            <p>Produced the portals directly in SharePoint, navigable and ready for teams to own going forward.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec impact line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">05</span><span class="ttl">Impact</span></div>
+        <div class="impact-stats">
+          <div class="st"><div class="big">2</div><div class="cap">regional portals — North America &amp; Mexico</div></div>
+          <div class="st"><div class="big">1</div><div class="cap">shared design system across both regions</div></div>
+          <div class="st"><div class="big"><span class="g">∞</span></div><div class="cap">scattered docs replaced by one structured hub</div></div>
+        </div>
+        <div class="impact-body">
+          <p>Two regions gained a single, branded place for internal information — <b>built and structured for the teams who use it every day.</b> The shared system means North America and Mexico evolve from the same foundation instead of drifting apart, and digital production scaled cleanly across borders.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Need a portal teams<br>actually use<span class="g">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

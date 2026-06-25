@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Corporate Events Production — Gerresheimer Querétaro · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .ph { position: relative; background-color: #E7EAEF; background-image: repeating-linear-gradient(135deg, rgba(31,41,55,0.07) 0 1px, transparent 1px 12px); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ph .ph-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.86); border: 1px solid var(--line); padding: 6px 11px; border-radius: 999px; }
+  .ph.dark { background-color: #1a2331; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 13px); border-color: transparent; }
+  .ph.dark .ph-tag { background: rgba(13,18,28,0.5); border-color: rgba(255,255,255,0.16); color: #c3ccd9; }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* ===== Hero ===== */
+  .ch { padding: 122px 0 0; }
+  .ch-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+  .ch-eyebrow .label { color: var(--blue); }
+  .ch-eyebrow .star { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--green); color: #04261b; font-weight: 700; padding: 5px 11px; border-radius: 999px; }
+  .ch-eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .ch h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 84px); line-height: 0.98; margin: 0 0 28px; text-wrap: balance; max-width: 15ch; }
+  .ch-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #2c313a; max-width: 62ch; margin: 0; }
+  .ch-sub b { font-weight: 500; }
+
+  .ch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 48px 0 0; }
+  .ch-meta .m { background: var(--surface); padding: 20px 22px; }
+  .ch-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  .hero-img { margin-top: 44px; }
+  .hero-img .ph { aspect-ratio: 21 / 9; border-radius: 14px; }
+  .hero-img .shot { aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background:#1a2331; }
+  .hero-img .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--blue) 24%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--green); padding-left: 20px; margin: 0 0 26px; }
+
+  /* ===== Project block ===== */
+  .proj { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .proj + .proj { margin-top: clamp(56px, 8vw, 104px); padding-top: clamp(56px, 8vw, 104px); border-top: 1px solid var(--line); }
+  .proj-visual { position: sticky; top: 96px; }
+  .proj-visual .ph { aspect-ratio: 4 / 5; border-radius: 14px; }
+  .proj-visual .shot { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background:#1a2331; }
+  .proj-visual .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+  .proj-visual .shot:hover img { transform: scale(1.04); }
+  /* Father's Day editorial duo — main + overlapping detail */
+  .fd-duo { position: relative; padding-bottom: clamp(54px, 8vw, 92px); }
+  .fd-duo .shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #1a2331; }
+  .fd-duo .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(.2,.7,.2,1); }
+  .fd-duo .shot:hover img { transform: scale(1.045); }
+  .fd-duo .main { aspect-ratio: 4 / 5; }
+  .fd-duo .detail {
+    position: absolute; right: -16px; bottom: 0; width: 54%; aspect-ratio: 4 / 5;
+    border: 7px solid var(--paper); border-radius: 16px;
+    box-shadow: 0 28px 46px -24px rgba(17,20,26,0.55);
+  }
+  .fd-duo .tag {
+    position: absolute; left: 14px; top: 14px; z-index: 2;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff; background: rgba(13,18,28,0.42); border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(5px); padding: 5px 11px; border-radius: 999px;
+  }
+
+  /* Flagship hydrogen frame — layered editorial composition with green echo + data plate */
+  .hp-frame { position: relative; padding: 0 24px 34px 0; }
+  .hp-frame::before {
+    content: ""; position: absolute; right: 0; bottom: 0; width: 84%; height: 80%;
+    background: var(--green); border-radius: 18px; z-index: 0;
+  }
+  .hp-frame .shot {
+    position: relative; z-index: 1; aspect-ratio: 4 / 5;
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #1a2331;
+    box-shadow: 0 30px 52px -28px rgba(17,20,26,0.55);
+  }
+  .hp-frame .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(.2,.7,.2,1); }
+  .hp-frame:hover .shot img { transform: scale(1.045); }
+  .hp-frame .tag {
+    position: absolute; left: 14px; top: 14px; z-index: 3;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff; background: rgba(13,18,28,0.42); border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(5px); padding: 5px 11px; border-radius: 999px;
+  }
+  .hp-badge {
+    position: absolute; left: -18px; bottom: 8px; z-index: 3;
+    background: var(--graphite); color: #fff; border-radius: 14px; padding: 16px 20px;
+    box-shadow: 0 26px 44px -22px rgba(17,20,26,0.6);
+    display: flex; align-items: center; gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hp-frame:hover .hp-badge { transform: translateY(-3px); box-shadow: 0 32px 52px -24px rgba(17,20,26,0.7); }
+  .hp-badge .n { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: 40px; line-height: 0.85; }
+  .hp-badge .n .g { color: var(--green); }
+  .hp-badge .l { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: #aeb6c2; line-height: 1.45; }
+  .proj-tag { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+  .proj-tag .n { width: 26px; height: 26px; border-radius: 7px; background: var(--blue); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 13px; }
+  .proj.flagship .proj-tag { color: var(--green); }
+  .proj.flagship .proj-tag .n { background: var(--green); color: #04261b; }
+  .proj h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(28px, 3.8vw, 48px); line-height: 1.0; margin: 0 0 8px; }
+  .proj .theme { font-family: var(--body); font-style: italic; font-size: clamp(17px, 1.8vw, 21px); color: var(--muted); margin: 0 0 26px; }
+  .proj .blk { margin-bottom: 24px; }
+  .proj .blk .bk { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
+  .proj .blk p { font-size: clamp(16px, 1.6vw, 18.5px); line-height: 1.6; color: #2c313a; margin: 0; }
+  .proj .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .proj .chips span { font-family: var(--mono); font-size: 11px; color: #3c424c; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; background: var(--surface); }
+  .proj .challenge { background: var(--graphite); color: #EAECEF; border-radius: 14px; padding: 24px 26px; margin-top: 4px; }
+  .proj .challenge .bk { color: var(--green); }
+  .proj .challenge p { color: #c7cdd6; font-size: clamp(16px, 1.6vw, 18.5px); line-height: 1.55; margin: 0; }
+  .proj .challenge p b { color: #fff; font-weight: 500; }
+
+  /* ===== Gallery ===== */
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2.4vw, 28px); }
+  .gallery figure { margin: 0; }
+  .gallery .shot { aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #1a2331; }
+  .gallery .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+  .gallery figure:hover .shot img { transform: scale(1.04); }
+  .gallery figcaption { font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+  .gallery figcaption b { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: -0.01em; color: var(--ink); display: block; margin-bottom: 3px; }
+
+  /* ===== Impact ===== */
+  .impact { background: var(--graphite); color: #EAECEF; }
+  .impact .sec-head .ttl { color: #8b94a3; }
+  .impact .sec-head .num { color: var(--green); }
+  .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+  .impact-stats .st { background: var(--graphite); padding: 34px 26px; }
+  .impact-stats .big { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(36px, 4.4vw, 60px); line-height: 0.9; color: #fff; }
+  .impact-stats .big .g { color: var(--green); }
+  .impact-stats .cap { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: #aeb6c2; margin-top: 14px; line-height: 1.4; }
+  .impact-body { max-width: 66ch; }
+  .impact-body p { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.55; color: #c7cdd6; margin: 0; }
+  .impact-body p b { color: #fff; font-weight: 500; }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--green); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--blue); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--green); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .ch-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .gallery { grid-template-columns: 1fr; }
+    .proj { grid-template-columns: 1fr; gap: 26px; }
+    .proj-visual { position: static; }
+    .proj-visual .ph { aspect-ratio: 16 / 10; }
+    .fd-duo .detail { right: 0; width: 50%; }
+    .hp-badge { left: 0; }
+    .impact-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .hero-img .ph { aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 460px) {
+    .impact-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="ch">
+    <div class="wrap">
+      <div class="ch-eyebrow"><span class="label">Case Study · Corporate Events</span><span class="star">★ Flagship</span></div>
+      <h1>Corporate Events Production</h1>
+      <p class="ch-sub"><b>Two events at opposite ends of the spectrum — an internal employee celebration and the official inauguration of the first hydrogen plant in the Americas, hosting the state governor and his cabinet.</b></p>
+
+      <div class="ch-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Event Production<br>Creative Direction</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Scope</div><div class="v">Budget &amp; vendor<br>management</div></div>
+        <div class="m"><div class="k">Events</div><div class="v">2 productions<br>internal → institutional</div></div>
+      </div>
+
+      <div class="hero-img">
+        <div class="shot"><img src="../assets/hydrogen-hero.jpg" alt="Group photo of attendees at the hydrogen plant inauguration, gathered under the event tent" /></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>From an employee party to a <span class="u">government-level inauguration.</span></h2>
+          <div class="prose">
+            <p>I produced two very different corporate events at the plant: an internal Father's Day celebration for employees, and the official inauguration of the first hydrogen plant in the Americas — a high-profile event attended by the state governor and members of his cabinet.</p>
+            <p class="pull">The same production discipline, scaled from a relaxed internal celebration to a high-stakes institutional event.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">The two productions</span></div>
+
+        <!-- Project 1 -->
+        <article class="proj">
+          <div class="proj-visual">
+            <div class="fd-duo">
+              <span class="tag">Casino night</span>
+              <div class="shot main"><img src="../assets/casino-fathersday.jpg" alt="Casino-theme Father's Day event — bingo, glass chips and play money on the red felt table" /></div>
+              <div class="shot detail"><img src="../assets/casino-blackjack.jpg" alt="Blackjack table — Ace and Jack dealt on the felt at the casino-theme Father's Day event" /></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-tag"><span class="n">01</span> Father's Day Celebration · Casino Theme</div>
+            <h3>An evening off the clock.</h3>
+            <p class="theme">An HR-driven initiative giving employees a space to relax, have fun and celebrate — deliberately different from the workday.</p>
+
+            <div class="blk">
+              <div class="bk">What I did</div>
+              <p>I led vendor sourcing and budget management end to end — coordinating casino tables, catering, gifts and decoration. I built two differentiated budget proposals (an economy and a premium option) for managerial approval, then iterated on scope and cost as the event's needs evolved until we landed on the right fit.</p>
+            </div>
+
+            <div class="blk">
+              <div class="bk">Deliverables</div>
+              <div class="chips"><span>Excel budget configurators</span><span>Event banner designs</span><span>Vendor coordination</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 — Flagship -->
+        <article class="proj flagship">
+          <div class="proj-visual">
+            <figure class="hp-frame">
+              <span class="tag">Green H₂ · Querétaro</span>
+              <div class="shot"><img src="../assets/hydrogen-tour-portrait.jpg" alt="Guided plant tour — Gerresheimer leadership observing the green-hydrogen unit" /></div>
+              <div class="hp-badge">
+                <div class="n">1<span class="g">st</span></div>
+                <div class="l">hydrogen plant<br>in the Americas</div>
+              </div>
+            </figure>
+          </div>
+          <div class="proj-body">
+            <div class="proj-tag"><span class="n">02</span> Hydrogen Plant Inauguration · Flagship</div>
+            <h3>First hydrogen plant in the Americas.</h3>
+            <p class="theme">Officially inaugurate Gerresheimer Querétaro's new hydrogen plant — built with supplier Cryoinfra — and host the state governor and his cabinet.</p>
+
+            <div class="blk">
+              <div class="bk">What I did</div>
+              <p>I coordinated event logistics in close partnership with government staff — joint planning and reviews from start to finish. I sourced and quoted the LED screen, designed the visual artwork projected on stage, managed on-site logistics and covered the event itself. I also coordinated with official media to secure press coverage in local newspapers.</p>
+            </div>
+
+            <div class="blk">
+              <div class="bk">Scope</div>
+              <div class="chips"><span>Government coordination</span><span>LED screen sourcing</span><span>Stage artwork</span><span>On-site logistics</span><span>Press &amp; media</span></div>
+            </div>
+
+            <div class="challenge">
+              <div class="bk">The challenge</div>
+              <p>The entire program had to run within the strict time window of the governor's official agenda — <b>zero margin for delay.</b> The event ran quickly and smoothly, exactly on schedule.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Moments from the day</span></div>
+        <div class="gallery">
+          <figure>
+            <div class="shot"><img src="../assets/hydrogen-plaque.jpg" alt="Plaque unveiling and handshake on stage at the inauguration" /></div>
+            <figcaption><b>The unveiling</b>Commemorative plaque revealed on stage — partners and leadership.</figcaption>
+          </figure>
+          <figure>
+            <div class="shot"><img src="../assets/hydrogen-ribbon-wide.jpg" alt="Ribbon-cutting ceremony in front of the &lsquo;Primera Planta de Hidrógeno Verde&rsquo; LED screen" /></div>
+            <figcaption><b>The ribbon-cutting</b>Leadership, partners and the state governor open the plant on stage.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec impact line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">Impact</span></div>
+        <div class="impact-stats">
+          <div class="st"><div class="big">150<span class="g">+</span></div><div class="cap">attendees at the hydrogen inauguration</div></div>
+          <div class="st"><div class="big">1<span class="g">st</span></div><div class="cap">hydrogen plant in the Americas</div></div>
+          <div class="st"><div class="big">2</div><div class="cap">events: internal celebration → institutional</div></div>
+        </div>
+        <div class="impact-body">
+          <p>The hydrogen inauguration drew 150+ attendees — Gerresheimer employees and Cryoinfra staff — and <b>executed flawlessly within the governor's fixed schedule.</b> Across both events I ran the full production cycle: vendor sourcing, budget management, creative direction and high-stakes coordination with external partners — from an internal employee celebration to a government-level institutional event.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Let's  creat an event!</h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

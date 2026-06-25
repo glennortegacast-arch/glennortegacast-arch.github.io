@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leadership Development Program — Gerresheimer Querétaro · Glenn Ortega</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #11141A;
+    --graphite: #1F2937;
+    --blue: #2D6BFF;
+    --green: #12B886;
+    --amber: #E8A317;
+    --muted: #5B616B;
+    --line: #E2E5EA;
+    --line-dark: #333B47;
+
+    --display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --body: 'Newsreader', Georgia, serif;
+    --mono: 'Space Mono', ui-monospace, monospace;
+
+    --maxw: 1200px;
+    --pad: clamp(20px, 5vw, 76px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  /* ===== Nav ===== */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; background: color-mix(in srgb, var(--paper) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.scrolled { border-bottom-color: var(--line); background: color-mix(in srgb, var(--paper) 92%, transparent); }
+  .nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .back { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .back .arr { transition: transform 0.2s; }
+  .back:hover .arr { transform: translateX(-3px); }
+  .nav-brand { font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .nav-brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* ===== Hero ===== */
+  .ch { padding: 122px 0 0; }
+  .ch-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; flex-wrap: wrap; }
+  .ch-eyebrow .label { color: var(--blue); }
+  .status-pill { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: #6b4a00; background: color-mix(in srgb, var(--amber) 22%, #fff); border: 1px solid color-mix(in srgb, var(--amber) 45%, #fff); padding: 6px 12px; border-radius: 999px; }
+  .status-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+  @media (prefers-reduced-motion: no-preference) { .status-pill::before { animation: pulse 1.8s ease-out infinite; } @keyframes pulse { 0%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--amber) 70%, transparent);} 70%{ box-shadow: 0 0 0 7px transparent;} 100%{ box-shadow: 0 0 0 0 transparent;} } }
+  .ch-eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); min-width: 30px; }
+  .ch h1 { font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; font-size: clamp(40px, 6.4vw, 84px); line-height: 0.98; margin: 0 0 28px; text-wrap: balance; max-width: 15ch; }
+  .ch-sub { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; color: #2c313a; max-width: 60ch; margin: 0; }
+  .ch-sub b { font-weight: 500; }
+
+  .ch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 48px 0 0; }
+  .ch-meta .m { background: var(--surface); padding: 20px 22px; }
+  .ch-meta .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ch-meta .v { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  /* ===== Hero stage — program emblem (graphic) ===== */
+  .stage { position: relative; margin-top: 44px; aspect-ratio: 21 / 9; border-radius: 16px; overflow: hidden; background: linear-gradient(150deg, #243149 0%, #11141A 100%); display: flex; align-items: center; justify-content: center; }
+  .stage .rings { position: absolute; inset: 0; background: repeating-radial-gradient(circle at 50% 120%, transparent 0 54px, rgba(255,255,255,0.05) 54px 56px); }
+  .stage .glow { position: absolute; width: 50%; height: 120%; left: 50%; top: 30%; transform: translate(-50%,-30%); border-radius: 50%; background: radial-gradient(circle, rgba(45,107,255,0.3), rgba(18,184,134,0.1) 45%, transparent 70%); filter: blur(6px); }
+  .stage .climb { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: clamp(8px, 1.6vw, 18px); }
+  .stage .bar { width: clamp(36px, 6vw, 72px); border-radius: 8px 8px 0 0; background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05)); border: 1px solid rgba(255,255,255,0.16); border-bottom: none; display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; position: relative; }
+  .stage .bar span { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 0.04em; }
+  .stage .bar.b1 { height: 64px; } .stage .bar.b2 { height: 104px; } .stage .bar.b3 { height: 146px; } .stage .bar.b4 { height: 192px; background: linear-gradient(180deg, color-mix(in srgb, var(--blue) 70%, transparent), color-mix(in srgb, var(--green) 40%, transparent)); border-color: rgba(143,176,255,0.5); }
+  .stage .bar .cap { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font-family: var(--display); font-weight: 700; font-size: 14px; color: #EAECEF; white-space: nowrap; }
+  .stage .corner-note { position: absolute; left: 18px; top: 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .stage .arrow-up { position: absolute; right: clamp(20px,5vw,60px); bottom: 22px; z-index: 2; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8fb0ff; display: inline-flex; align-items: center; gap: 8px; }
+
+  /* ===== Section scaffold ===== */
+  .sec { padding: clamp(64px, 9vw, 116px) 0; }
+  .sec.line-top { border-top: 1px solid var(--line); }
+  .band-white { background: var(--surface); }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 56px); }
+  .sec-head .num { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+  .sec-head .ttl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .split h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .split h2 .u { background: linear-gradient(transparent 66%, color-mix(in srgb, var(--blue) 24%, transparent) 66%); }
+  .prose p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.62; color: #2c313a; margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose .pull { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--blue); padding-left: 20px; margin: 0 0 26px; }
+
+  /* ===== Format split (live / online) ===== */
+  .formats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fmt { border: 1px solid var(--line); border-radius: 16px; padding: 28px 26px 30px; background: var(--surface); position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .fmt:hover { transform: translateY(-4px); box-shadow: 0 26px 44px -30px rgba(17,20,26,0.4); }
+  .fmt .tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 9px; }
+  .fmt.live .tag { color: var(--blue); } .fmt.online .tag { color: var(--green); }
+  .fmt .tag::before { content: ""; width: 10px; height: 10px; border-radius: 3px; }
+  .fmt.live .tag::before { background: var(--blue); } .fmt.online .tag::before { background: var(--green); }
+  .fmt h3 { font-family: var(--display); font-weight: 600; font-size: 25px; letter-spacing: -0.02em; margin: 16px 0 8px; }
+  .fmt p { font-family: var(--body); font-size: 16px; line-height: 1.55; color: var(--muted); margin: 0; }
+
+  /* ===== Timeline (4 modules / 90 days) ===== */
+  .timeline { position: relative; margin-top: 6px; }
+  .tl-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .tl-mod { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px 26px; transition: transform 0.3s, box-shadow 0.3s; }
+  .tl-mod:hover { transform: translateY(-5px); box-shadow: 0 26px 44px -30px rgba(17,20,26,0.4); }
+  .tl-mod .mn { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 0.06em; }
+  .tl-mod .dys { font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.04em; float: right; }
+  .tl-mod h4 { font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: -0.02em; margin: 16px 0 8px; line-height: 1.1; }
+  .tl-mod p { font-family: var(--body); font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 0; }
+  .tl-mod .mode { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: #3c424c; }
+  .tl-mod.cap-mod { background: linear-gradient(150deg, var(--graphite), #11141A); color: #EAECEF; border-color: transparent; }
+  .tl-mod.cap-mod .mn { color: #8fb0ff; } .tl-mod.cap-mod .dys { color: #8b94a3; }
+  .tl-mod.cap-mod p { color: #aeb6c2; } .tl-mod.cap-mod .mode { border-color: rgba(255,255,255,0.2); color: #d4fbf9; }
+  .tl-bar { margin-top: 22px; height: 8px; border-radius: 999px; background: var(--line); position: relative; overflow: hidden; }
+  .tl-bar::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); border-radius: 999px; }
+  .tl-bar-labels { display: flex; justify-content: space-between; margin-top: 9px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.04em; }
+
+  /* curriculum chips */
+  .curric { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .curric span { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 10px 18px; }
+  .curric span.cap { background: var(--graphite); color: #fff; border-color: var(--graphite); }
+
+  /* ===== Tools ===== */
+  .tools { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(24px,4vw,52px); align-items: center; }
+  .tool-card { background: linear-gradient(150deg, var(--graphite), #11141A); color: #EAECEF; border-radius: 16px; padding: clamp(26px,3vw,38px); position: relative; overflow: hidden; }
+  .tool-card::after { content: ""; position: absolute; right: -50px; top: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(45,107,255,0.18); }
+  .tool-card .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8fb0ff; }
+  .tool-card .v { font-family: var(--display); font-weight: 700; font-size: clamp(26px,3.4vw,40px); letter-spacing: -0.02em; line-height: 1.0; margin: 16px 0 12px; position: relative; z-index: 1; }
+  .tool-card .d { font-family: var(--body); font-size: 16px; line-height: 1.55; color: #aeb6c2; margin: 0; position: relative; z-index: 1; }
+
+  /* ===== Status band ===== */
+  .statusband { background: var(--graphite); color: #EAECEF; }
+  .statusband .sec-head .ttl { color: #8b94a3; } .statusband .sec-head .num { color: var(--amber); }
+  .sb-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px,5vw,64px); align-items: center; }
+  .sb-grid h2 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(28px,3.8vw,46px); line-height: 1.02; margin: 0; }
+  .sb-grid h2 .a { color: var(--amber); }
+  .sb-prog { background: var(--film, #14171E); border: 1px solid var(--line-dark); border-radius: 16px; padding: 28px 28px 30px; }
+  .sb-prog .row { display: flex; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: #aeb6c2; margin-bottom: 14px; }
+  .sb-prog .row .now { color: var(--amber); }
+  .sb-prog .track { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative; }
+  .sb-prog .track::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 68%; border-radius: 999px; background: linear-gradient(90deg, var(--amber), var(--green)); }
+  .sb-steps { display: flex; justify-content: space-between; margin-top: 16px; }
+  .sb-steps .stp { font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: #6b7280; text-align: center; flex: 1; position: relative; }
+  .sb-steps .stp.done { color: var(--green); } .sb-steps .stp.active { color: var(--amber); }
+  .sb-steps .stp::before { content: ""; display: block; width: 11px; height: 11px; border-radius: 50%; background: #333b47; margin: 0 auto 8px; }
+  .sb-steps .stp.done::before { background: var(--green); } .sb-steps .stp.active::before { background: var(--amber); box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 30%, transparent); }
+
+  /* ===== Next / CTA ===== */
+  .next { background: var(--surface); border-top: 1px solid var(--line); }
+  .next-in { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; padding: clamp(48px, 7vw, 88px) 0; }
+  .next-in h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.0; margin: 0; }
+  .next-in h3 .g { color: var(--blue); }
+  .btn { font-family: var(--display); font-weight: 600; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--graphite); color: #fff; }
+  .btn-primary:hover { background: var(--blue); }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  footer { background: var(--graphite); color: #8b94a3; border-top: 1px solid var(--line-dark); }
+  .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 26px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-in .b { font-family: var(--display); font-weight: 700; font-size: 15px; color: #EAECEF; }
+  .foot-in .b .g { color: var(--green); }
+  .foot-in .m { font-family: var(--mono); font-size: 12px; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 860px) {
+    .ch-meta { grid-template-columns: repeat(2, 1fr); }
+    .split { grid-template-columns: 1fr; gap: 24px; }
+    .formats { grid-template-columns: 1fr; }
+    .tl-track { grid-template-columns: repeat(2, 1fr); }
+    .tools { grid-template-columns: 1fr; }
+    .sb-grid { grid-template-columns: 1fr; }
+    .stage { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 17px; }
+    .nav-brand { display: none; }
+    .tl-track { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a href="../index.html#work" class="back"><span class="arr">←</span> Back to work</a>
+      <a href="../index.html" class="nav-brand"><span class="dot"></span>Glenn Ortega</a>
+    </div>
+  </nav>
+
+  <header class="ch">
+    <div class="wrap">
+      <div class="ch-eyebrow">
+        <span class="label">Case Study · Learning Design</span>
+        <span class="status-pill">In production · Launching Jul 2026</span>
+      </div>
+      <h1>Leadership Development Program</h1>
+      <p class="ch-sub"><b>Building leadership from within — a structured, hybrid curriculum that gives the plant's identified future leaders a clear path to grow into the role.</b></p>
+
+      <div class="ch-meta">
+        <div class="m"><div class="k">Role</div><div class="v">Instructional Design<br>Content Production</div></div>
+        <div class="m"><div class="k">Client</div><div class="v">Gerresheimer<br>Querétaro</div></div>
+        <div class="m"><div class="k">Format</div><div class="v">4 modules<br>over 90 days</div></div>
+        <div class="m"><div class="k">Status</div><div class="v">In production<br>Launch Jul 2026</div></div>
+      </div>
+
+      <div class="stage">
+        <div class="rings"></div>
+        <div class="glow"></div>
+        <span class="corner-note">Growth path · schematic</span>
+        <div class="climb">
+          <div class="bar b1"><span>M1</span></div>
+          <div class="bar b2"><span>M2</span></div>
+          <div class="bar b3"><span>M3</span></div>
+          <div class="bar b4"><span class="cap">Leader</span><span>M4</span></div>
+        </div>
+        <span class="arrow-up">90 days ↗</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CONTEXT -->
+    <section class="sec reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">01</span><span class="ttl">Context</span></div>
+        <div class="split">
+          <h2>Building the next generation of leaders <span class="u">from within.</span></h2>
+          <div class="prose">
+            <p>Gerresheimer Querétaro needed a structured way to build leadership from within and develop its internal talent pipeline. The program targets employees across the plant who have been identified as future leaders.</p>
+            <p class="pull">A clear, deliberate path to grow into leadership roles — not left to chance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY ROLE -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">02</span><span class="ttl">My Role</span></div>
+        <div class="split">
+          <h2>From development goals to a <span class="u">deliverable curriculum.</span></h2>
+          <div class="prose">
+            <p>Working alongside the Training Lead, I'm responsible for the program design, content creation, and production of all learning materials — translating leadership development goals into a structured, deliverable curriculum.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAM STRUCTURE -->
+    <section class="sec line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">03</span><span class="ttl">Program structure</span></div>
+
+        <div class="formats" style="margin-bottom:clamp(36px,5vw,56px);">
+          <div class="fmt live">
+            <div class="tag">In-person</div>
+            <h3>Live delivery</h3>
+            <p>Program kickoff and HR fundamentals — delivered face to face to anchor the cohort.</p>
+          </div>
+          <div class="fmt online">
+            <div class="tag">Self-paced</div>
+            <h3>Online via LMS</h3>
+            <p>Soft-skills development delivered digitally through the company learning platform.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-track">
+            <div class="tl-mod"><span class="mn">Module 01</span><span class="dys">Day 1</span><h4>Kickoff &amp; HR fundamentals</h4><p>Cohort launch and the HR foundations every leader needs.</p><span class="mode">Live</span></div>
+            <div class="tl-mod"><span class="mn">Module 02</span><span class="dys">Days 15–45</span><h4>Leadership principles</h4><p>Core leadership concepts and change management.</p><span class="mode">Online</span></div>
+            <div class="tl-mod"><span class="mn">Module 03</span><span class="dys">Days 45–75</span><h4>Decision-making</h4><p>Soft skills and decision-making under real constraints.</p><span class="mode">Online</span></div>
+            <div class="tl-mod cap-mod"><span class="mn">Module 04</span><span class="dys">Days 75–90</span><h4>Practical project</h4><p>Apply the theory to a real challenge — learning through application.</p><span class="mode">Capstone</span></div>
+          </div>
+          <div class="tl-bar"></div>
+          <div class="tl-bar-labels"><span>Day 0 · Kickoff</span><span>Day 90 · Capstone</span></div>
+        </div>
+
+        <div class="curric">
+          <span>HR concepts</span>
+          <span>Leadership principles</span>
+          <span>Change management</span>
+          <span>Decision-making</span>
+          <span class="cap">Hands-on capstone project</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="sec band-white line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">04</span><span class="ttl">Tools &amp; production</span></div>
+        <div class="tools">
+          <div class="prose">
+            <p>I'm producing the e-learning modules natively in the company's LMS, building the digital learning experience from the ground up — authored, structured and delivered inside the platform participants already use.</p>
+          </div>
+          <div class="tool-card">
+            <div class="k">Built natively in</div>
+            <div class="v">SAP<br>SuccessFactors</div>
+            <p class="d">E-learning modules authored from the ground up inside the company LMS.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATUS -->
+    <section class="sec statusband line-top reveal">
+      <div class="wrap">
+        <div class="sec-head"><span class="num">05</span><span class="ttl">Status</span></div>
+        <div class="sb-grid">
+          <h2>Currently in content production — <span class="a">launching the third week of July 2026.</span></h2>
+          <div class="sb-prog">
+            <div class="row"><span>Program build</span><span class="now">In production</span></div>
+            <div class="track"></div>
+            <div class="sb-steps">
+              <div class="stp done">Design</div>
+              <div class="stp active">Production</div>
+              <div class="stp">Pilot</div>
+              <div class="stp">Launch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / CTA -->
+    <section class="next reveal">
+      <div class="wrap next-in">
+        <h3>Designing a program<br>worth building<span class="g">?</span></h3>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-in">
+      <span class="b">Glenn Ortega<span class="g">.</span></span>
+      <span class="m">Creative Producer — Produced end to end</span>
+      <span class="m">© 2026</span>
+    </div>
+  </footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
